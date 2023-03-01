@@ -11,7 +11,9 @@ export default function HomeScreen({ navigation }) {
         navigation.navigate("New Vote");
     }
 
-    const joinVote = () => { }
+    const joinVote = () => { 
+        navigation.navigate("Join Vote");
+     }
 
     return (
 
