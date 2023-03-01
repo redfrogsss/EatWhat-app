@@ -21,10 +21,10 @@ export default function HomeScreen({ navigation }) {
             px={4}
             flex={1}
         >
-            <VStack space={5} alignItems="center">
+            <VStack space={5} alignItems="center" w="100%">
                 <Heading size="3xl">EatWhat</Heading>
-                <Button w="48" size="lg" onPress={newVote}>Start a New Vote</Button>
-                <Button w="48" size="lg" onPress={joinVote}>Join Existing Vote</Button>
+                <Button w="100%" size="lg" onPress={newVote}>Start a New Vote</Button>
+                <Button w="100%" size="lg" onPress={joinVote}>Join Existing Vote</Button>
             </VStack>
         </Center>
     );

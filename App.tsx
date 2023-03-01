@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import NewVoteScreen from "./screens/NewVoteScreen";
+import VoteScreen from "./screens/VoteScreen";
 
 // Define the config
 const config = {
@@ -29,6 +30,7 @@ export default function App() {
                 <Stack.Navigator>
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="New Vote" component={NewVoteScreen} />
+                    <Stack.Screen name="Vote" component={VoteScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </NativeBaseProvider>
