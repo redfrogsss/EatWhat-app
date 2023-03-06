@@ -10,6 +10,7 @@ import HomeScreen from "./screens/HomeScreen";
 import NewVoteScreen from "./screens/NewVoteScreen";
 import VoteScreen from "./screens/VoteScreen";
 import JoinVoteScreen from "./screens/JoinVoteScreen";
+import VoteResultScreen from "./screens/VoteResultScreen";
 
 // Define the config
 const config = {
@@ -33,6 +34,7 @@ export default function App() {
                     <Stack.Screen name="New Vote" component={NewVoteScreen} />
                     <Stack.Screen name="Vote" component={VoteScreen} />
                     <Stack.Screen name="Join Vote" component={JoinVoteScreen} />
+                    <Stack.Screen name="Vote Result" component={VoteResultScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </NativeBaseProvider>
