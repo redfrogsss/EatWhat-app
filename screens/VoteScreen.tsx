@@ -13,7 +13,9 @@ import React from "react";
 import { Alert } from "react-native";
 
 
-export default function VoteScreen({ navigation }) {
+export default function VoteScreen({ route, navigation }) {
+
+    const { voteId } = route.params;
 
     const toast = useToast();
 
@@ -49,6 +51,7 @@ export default function VoteScreen({ navigation }) {
                     <Text bold>Vote a food:</Text>
                     <Button w="100%" size="lg" onPress={randomChoose}>Randomly Choose One</Button>
                     <Button w="100%" colorScheme="secondary" size="lg" onPress={copyURL}>Copy URL to share</Button>
+                    <Text>vote ID: {voteId}</Text>
                 </VStack>
             </Center>
         </ScrollView>

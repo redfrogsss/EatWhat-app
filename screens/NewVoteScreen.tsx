@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     Center,
     Heading,
@@ -7,14 +8,18 @@ import {
     Input,
     ScrollView,
     FormControl,
+    useToast,
 } from "native-base";
 import React from "react";
+import getAPI from "../components/getAPI";
 
 export default function NewVoteScreen({ navigation }) {
 
     const [items, setItems] = React.useState<string[]>(["", ""]);
 
     const [isInvalidInput, setIsInvalidInput] = React.useState<boolean>(false);
+
+    const toast = useToast();
 
     const ItemsInput = () => {
 
@@ -41,20 +46,39 @@ export default function NewVoteScreen({ navigation }) {
         // if not, show error
         // if yes, navigate to vote screen
         
-        setIsInvalidInput(false);
+        let validInput = true;
 
         items.forEach((item) => {
             if (item === "") {
+                validInput = false;
                 setIsInvalidInput(true);
                 return;
             }
         });
 
-        if (!isInvalidInput) {
+        console.log("items", items)
+
+        if (validInput === true) {
             // post to api
+            let url = getAPI() + "/vote";
+
+            // send the request to backend
+            axios.post(url, {})
+                .then((res) => {
+                    let voteId = res.data.vote_id;
+                    url = getAPI() + "/voteOption/" + voteId;
+
+                    axios.post(url, {options: items})
+                        .then((res) => {
+                            // navigate to vote screen
+                            navigation.navigate("Vote", {voteId: voteId});
+                        })
+                        .catch((err) => { console.error(err); toast.show({description: "Failed to send option request."}); });
+                })
+                .catch((err) => { console.error(err); toast.show({description: "Failed to send vote request."}); });
 
             // navigate to vote screen
-            navigation.navigate("Vote");
+            // navigation.navigate("Vote");
         }
     }
 
