@@ -17,7 +17,7 @@ export default function JoinVoteScreen({ navigation }) {
     const [code, setCode] = React.useState<string>("");
 
     const JoinVote = () => {
-        navigation.navigate("Vote");
+        navigation.navigate("Vote", { voteId: code });
     }
 
     const onChangeCode = (code: string) => {

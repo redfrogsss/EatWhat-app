@@ -76,9 +76,6 @@ export default function NewVoteScreen({ navigation }) {
                         .catch((err) => { console.error(err); toast.show({description: "Failed to send option request."}); });
                 })
                 .catch((err) => { console.error(err); toast.show({description: "Failed to send vote request."}); });
-
-            // navigate to vote screen
-            // navigation.navigate("Vote");
         }
     }
 
