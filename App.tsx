@@ -29,12 +29,19 @@ export default function App() {
     return (
         <NativeBaseProvider>
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator screenOptions={{ gestureEnabled: false }}>
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="New Vote" component={NewVoteScreen} />
                     <Stack.Screen name="Vote" component={VoteScreen} />
                     <Stack.Screen name="Join Vote" component={JoinVoteScreen} />
-                    <Stack.Screen name="Vote Result" component={VoteResultScreen} />
+                    <Stack.Screen
+                        name="Vote Result"
+                        component={VoteResultScreen}
+                        options={{
+                            headerBackVisible: false,
+                            headerLeft: () => null,
+                        }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </NativeBaseProvider>
