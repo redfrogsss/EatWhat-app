@@ -1,4 +1,5 @@
 
+import axios from "axios";
 import {
     Center,
     Heading,
@@ -8,16 +9,36 @@ import {
     Input,
     ScrollView,
     FormControl,
+    useToast,
 } from "native-base";
 import React from "react";
+import getAPI from "../components/getAPI";
 
 
 export default function JoinVoteScreen({ navigation }) {
 
     const [code, setCode] = React.useState<string>("");
+    const toast = useToast();
 
     const JoinVote = () => {
-        navigation.navigate("Vote", { voteId: code });
+
+        // check if code is valid
+        // if not, show error message
+        // else, navigate to vote screen
+        axios.get(getAPI() + "/vote/" + code)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.length <= 0) {
+                    toast.show({ description: "Error: code is not valid."})
+                    return;
+                }
+                navigation.navigate("Vote", { voteId: code });
+            })
+            .catch((error) => {
+                console.error("JoinVote() Error:", error);
+                toast.show({ description: "Error: code is not valid."})
+            });
+
     }
 
     const onChangeCode = (code: string) => {
