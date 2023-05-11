@@ -57,7 +57,13 @@ export default function JoinVoteScreen({ navigation }) {
                 <VStack space={5} my={5} alignItems="center" w="100%">
                     <Heading size="3xl">EatWhat</Heading>
                     <Text bold>Join a Vote:</Text>
-                    <Input variant="rounded" size="lg" placeholder="Enter the code..." onChange={(e)=>{onChangeCode(e.nativeEvent.text)}}/>
+                    <Input
+                        keyboardType="number-pad"
+                        variant="rounded"
+                        size="lg"
+                        placeholder="Enter the code..."
+                        onChange={(e) => { onChangeCode(e.nativeEvent.text) }}
+                    />
                     <Button size="lg" w="100%" onPress={JoinVote}>Join</Button>
                 </VStack>
             </Center>
