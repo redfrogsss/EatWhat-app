@@ -5,15 +5,12 @@ import {
     VStack,
     Button,
     Text,
-    Input,
     ScrollView,
-    FormControl,
     useToast,
 } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Share } from "react-native";
 import getAPI from "../components/getAPI";
-
 
 export default function VoteScreen({ route, navigation }) {
 
@@ -30,21 +27,37 @@ export default function VoteScreen({ route, navigation }) {
     const toast = useToast();
 
     const randomChoose = () => {
-        voteItem();
+        submitVote(voteId, options, Math.floor(Math.random() * options.length));
     }
 
-    const copyURL = () => {
-        // copy the url to clipboard
-
-        // show success alert
-        // Alert.alert("Link copied to clipboard");
-        toast.show({
-            description: "Link copied to clipboard",
-        })
-    }
-
-    const voteItem = () => {
-        navigation.navigate("Vote Result");
+    const shareLink = async () => {
+        // share url using react native's share api
+        try {
+            const result = await Share.share({
+                message:
+                    'EatWhat App: Choose a food with me! \nCode: ' + voteId,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                    toast.show({
+                        description: "Share successfully!",
+                    })
+                } else {
+                    // shared
+                    toast.show({
+                        description: "Share successfully!",
+                    })
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+                toast.show({
+                    description: "Share dismissed!",
+                })
+            }
+        } catch (error: any) {
+            Alert.alert(error.message);
+        }
     }
 
     const fetchVoteOptions = (voteId: string | undefined) => {
@@ -89,7 +102,7 @@ export default function VoteScreen({ route, navigation }) {
         let url = getAPI() + "/voteItem/" + voteItemId;
         axios.post(url)
         .then((response) => {
-            toast.show({description: "Vote submitted"});
+            toast.show({description: "You voted " + options[voteIndex].name + " successfully!"});
 
             // natigate to vote result screen
             navigation.navigate("Vote Result", {voteId: voteId});
@@ -118,7 +131,7 @@ export default function VoteScreen({ route, navigation }) {
                     <Text bold>Vote a food:</Text>
                     {showVoteOptions()}
                     <Button w="100%" size="lg" onPress={randomChoose}>Randomly Choose One</Button>
-                    <Button w="100%" colorScheme="secondary" size="lg" onPress={copyURL}>Copy URL to share</Button>
+                    <Button w="100%" colorScheme="secondary" size="lg" onPress={shareLink}>Copy URL to share</Button>
                     <Text>vote ID: {voteId}</Text>
                 </VStack>
             </Center>
